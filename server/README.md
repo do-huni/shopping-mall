@@ -33,26 +33,72 @@ https://mermaid.live/edit#pako:eNpVjk2Lg0AMhv9KyGkL9Q94WGh1t5fCFurN6SFo7AztfDBGp
 title: shopping-mall
 ---
 erDiagram
-    CUSTOMER {
-        int id PK              
-        String name 
-        String phone
-        String registered_at
-        int rank
-        int rank_point
-        int membership_point
+    USER ||--o{ ITEM : sells
+    ITEM ||--o{ REVIEW : has
+    CATEGORY ||--o{ ITEM : includes
+    USER ||--o{ USER-COUPON : connects
+    USER-COUPON }o--|| COUPON: connects
+    USER ||--o{ CART-ITEM : has
+    USER {
+        int id PK "유저 고유 번호"
+        VARCHAR(10) name  "유저 이름"
+        VARCHAR(13) phone  "xxx-xxxx-xxxx"
+        TIMESTAMP registered_at  "가입날짜"
+        VARCHAR(50) address_lv1  "우편번호"
+        VARCHAR(50) address_lv2  "상세주소"
+        int rank  "멤버 등급"
+        int rank_point  "등급 포인트"
+        int membership_point  "적립금"
+        boolean admin_priv "어드민 권한"
+        boolean sales_priv  "판매자 권한"        
+        VARCHAR(50) email  "유저 이메일"
+        VARCHAR(100) pw  "유저 비밀번호(암호화)"
+        VARCHAR(1000) refreshToken  "JWT 리프레쉬 토큰"
+    }    
+
+    ITEM{
+        int id PK "상품 고유 번호"
+        int publisher_id FK "USER-id"
+        int category_id FK "CATEGORY-id"
+        VARCHAR(50) name  "상품 이름"
+        int price  "가격"
+        boolean couponable  "쿠폰적용가능유무"
+        DECIMAL sale  "세일 퍼센트"
+        TIMESTAMP posted_at  "등록날짜"
     }
-    
-    ADDRESS{
-        int address_id PK
-        int user_id FK
-        String lv1
-        String lv2
+    USER-COUPON{
+        int user_id FK "USER-id"
+        int coupon_id FK "COUPON-id"        
+    }
+    COUPON{
+        int id PK "쿠폰id"
+    }
+    CART-ITEM{
+        int uid FK "USER-id"
+    }
+    REVIEW{
+        int id PK "리뷰 고유 번호"
+        int item_id FK "ITEM-id"
+        VARCHAR(50) user_id FK "USER-id"
+        int star  "별점(0~5)"        
+        VARCHAR(1000) content  "내용"
+    }
+
+    CATEGORY{
+        int id PK "카테고리 고유 번호"
+        VARCHAR(50) name  "카테고리 이름"
+
     }
 ```
 
 
-|summary|URI|Request Header|Params|Request Body|Success Code|Response Header|Response Body|
+|summary|URI|Request Header|Params|Request Body|Status Code|Response Header|Response Body|
 |---|---|---|---|---|---|---|---|
-|---|---|---|---|---|---|---|---|
-|---|---|---|---|---|---|---|---|
+|회원가입|POST /signup|---|---|---|---|---|---|
+|JWT토큰 발행|GET /signin|---|---|---|---|---|---|
+|JWT토큰 리프레쉬|GET /refresh|---|---|---|---|---|---|
+|상품 카테고리 추가|POST /admin/category|---|---|---|---|---|---|
+|카테고리에 상품 추가|POST /admin/{category_id}/post|---|---|---|---|---|---|
+|특정 카테고리 상품 목록|GET /{category_id}/post|---|---|---|---|---|---|
+|상품 상세페이지|GET /{category_id}/{post_id}|---|---|---|---|---|---|
+|상품 수정|PATCH /{category_id}/{post_id}|---|---|---|---|---|---|
