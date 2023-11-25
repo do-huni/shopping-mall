@@ -37,8 +37,11 @@ erDiagram
     ITEM ||--o{ REVIEW : has
     CATEGORY ||--o{ ITEM : includes
     USER ||--o{ USER-COUPON : connects
+    CART-ITEM ||--|| COUPON : links
+    
     USER-COUPON }o--|| COUPON: connects
     USER ||--o{ CART-ITEM : has
+    CART-ITEM ||--|| ITEM : links
     USER {
         int id PK "유저 고유 번호"
         VARCHAR(10) name  "유저 이름"
@@ -67,14 +70,22 @@ erDiagram
         TIMESTAMP posted_at  "등록날짜"
     }
     USER-COUPON{
+        int id  "고유 번호"
         int user_id FK "USER-id"
         int coupon_id FK "COUPON-id"        
     }
     COUPON{
-        int id PK "쿠폰id"
+        int id PK "쿠폰 고유 번호"
+        int percent  "쿠폰 금액"
+        TIMESTAMP due  "유효기간"
     }
     CART-ITEM{
+        int id PK "고유 번호"
         int uid FK "USER-id"
+        int iid FK "ITEM-id"
+        int cid FK "COUPON-id"
+        int status  "상품 배송 상태"
+        int point_spend  "사용한 포인트"
     }
     REVIEW{
         int id PK "리뷰 고유 번호"
@@ -87,7 +98,6 @@ erDiagram
     CATEGORY{
         int id PK "카테고리 고유 번호"
         VARCHAR(50) name  "카테고리 이름"
-
     }
 ```
 

@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;800&display=swap');
+:root{
+	--main-white: #f2ebe5;
+	--main-blue: #647295;
+	--main-red: #9f496e;
+	--main-black:#2b262d;
+	--sub-white: #E1DDDB;
+}
+*{
+	box-sizing: border-box;
+}
+#signWrapper{
+	margin: 100px auto;
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	align-items: center;
+}
+#signUpLetter{
+	font-size: 28pt;
+	color: var(--main-black);
+	font-family: 'Noto Sans KR', sans-serif;		
+}
+#signForm{
+	display: flex;
+	flex-direction: column;	
+	font-family: 'Noto Sans KR', sans-serif;	
+}
+#signWrapper label{
+	margin-top: 28px;
+	font-weight: 800;
+}
+#signWrapper input{
+	width: 500px;
+	height: 40px;
+	font-size: 16pt;
+}
+
+.InputFormWrapper{
+	display: flex;
+	flex-direction: column;
+	font-family: 'Noto Sans KR', sans-serif;		
+}
+.InputFormMessage{
+	color: #747474;
+	
+}
+.InputTrue{
+	border: 2px solid var(--main-blue);
+}
+.InputFalse{
+	border: 2px solid #cd5c5c
+}

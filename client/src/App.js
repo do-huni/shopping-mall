@@ -1,7 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
 import axios from "axios";
 import {useEffect} from "react";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Header from "./Routes/HeaderFooter/Header.js";
+import Footer from "./Routes/HeaderFooter/Footer.js";
+import SignUp from "./Routes/Account/SignUp.js";
+import SignIn from "./Routes/Account/SignIn.js";
+
+import Main from "./Routes/Main/Main.js"
 
 function App() {
   const callApi = async () => {	  
@@ -19,22 +25,25 @@ function App() {
   }, []);
 	
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+	  <>
+	  <BrowserRouter>
+	  	  <Header/>		  
+	  	  <div id = "contentWrapper">		  
+		  <Routes>
+			  <Route path = "/" element = {
+					 <Main/> 
+				  }/>
+			  <Route path = "/signup" element = {
+					 <SignUp/> 
+				  }/>
+			  <Route path = "/signin" element = {
+					 <SignIn/> 
+				  }/>			  
+		  </Routes>
+	  	  <Footer/>		  	  			  
+		  </div>			  
+	  </BrowserRouter>
+	  </>
   );
 }
 
