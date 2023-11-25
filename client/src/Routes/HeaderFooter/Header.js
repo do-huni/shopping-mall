@@ -41,8 +41,9 @@ function Header() {
 			  <span className = {"dropdownWrapper"}>				  
 			  	  <BsFillPersonFill id = "userSVG"/>
 				  <div className = {"dropdownContent"}>
-					  <div onClick = {()=>{navigate("/signup")}}>sign up</div>
-					  <div onClick = {()=>{navigate("/signin")}}>sign in</div>
+					  <div onClick = {()=>{navigate("/mypage")}}>마이페이지</div>					  
+					  <div onClick = {()=>{navigate("/signup")}}>회원가입</div>
+					  <div onClick = {()=>{navigate("/signin")}}>로그인</div>
 					  
   			  	  </div>
 			   </span>			  
