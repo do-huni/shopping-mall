@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const mainRouter = require('./Router/mainRouter');
+const homeRouter = require('./routes/homeRouter');
 const cors = require('cors')
 
 const port = 8080
@@ -8,8 +8,10 @@ const port = 8080
 app.use(cors({ origin: [
   'https://shopping-mall-fe.run.goorm.site'
 ]}));
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 
-app.use('/api', mainRouter)
+app.use('/', homeRouter);
 
 app.listen(port, function(){
 	console.log("listening on " + port);

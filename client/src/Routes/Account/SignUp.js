@@ -113,7 +113,7 @@ function SignUp() {
 		console.log(signUpData);
 		axios({
 		  method: 'post',
-		  url: '/signup',
+		  url: 'https://shopping-mall-be.run.goorm.site/signup',
 		  data: signUpData		  
 		}).then((res)=>{
 			console.log(res);			
