@@ -1,5 +1,6 @@
 const db = require("../utils/database");
 const jwt = require("../utils/jwt-utils");
+const bcrypt = require('bcryptjs');
 
 class User {
     constructor(body) {
@@ -26,11 +27,11 @@ class User {
         try {
 			console.log(body);
 			const [result, fields] = await db.execute(`SELECT * FROM USER WHERE email="${body.email}";`);
-			console.log(result);
 			if(result.length === 0){
 				const refreshToken = jwt.refresh();
-				const postQuery = await db.execute(`INSERT INTO USER(name, email, pw, address_lv1, address_lv2, phone, refreshToken) VALUES("${body.name}", "${body.email}", "${body.pw}", "${body.address_lv1}", "${body.address_lv2}", "${body.phone}", "${refreshToken}");`);				
-				return({status: 200,
+				let pw = await bcrypt.hash(body.pw, 10);
+				const postQuery = await db.execute(`INSERT INTO USER(name, email, pw, address_lv1, address_lv2, phone, refreshToken) VALUES("${body.name}", "${body.email}", "${pw}", "${body.address_lv1}", "${body.address_lv2}", "${body.phone}", "${refreshToken}");`);				
+				return({status: 201,
 				   message: "sign up success!",
 				   jwtAccessToken: refreshToken});
 			};	
