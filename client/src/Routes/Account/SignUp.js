@@ -98,26 +98,27 @@ function SignUp() {
     }	
     const onSubmitHandler = (event) => {
         event.preventDefault();
-		if(Password.length < 8 || Password.length > 16)
-        if(Password !== ConfirmPassword){
-            return alert('비밀번호와 비밀번호 확인이 같지 않습니다.')
-        }
-		let signUpData = {
-			name: Name,
-			email: Email,
-			pw: Password,
-			address_lv1: Address,
-			address_lv2: AddressDetail,
-			phone: Phone			
+		if(EmailCheck && NameCheck && PasswordCheck && ConfirmPasswordCheck && PhoneCheck && AddressCheck && AddressDetailCheck){
+			let signUpData = {
+				name: Name,
+				email: Email,
+				pw: Password,
+				address_lv1: Address,
+				address_lv2: AddressDetail,
+				phone: Phone			
+			}
+			console.log(signUpData);
+			axios({
+			  method: 'post',
+			  url: 'https://shopping-mall-be.run.goorm.site/signup',
+			  data: signUpData		  
+			}).then((res)=>{
+				console.log(res);			
+			}).catch(console.error);				
+		} else{
+			alert("입력 조건이 충족되지 않았습니다.")
 		}
-		console.log(signUpData);
-		axios({
-		  method: 'post',
-		  url: 'https://shopping-mall-be.run.goorm.site/signup',
-		  data: signUpData		  
-		}).then((res)=>{
-			console.log(res);			
-		}).catch(console.error);		
+	
 	}	
 
   return (
