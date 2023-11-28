@@ -5,8 +5,8 @@ function InputForm(props) {
 	
   return (
     <div className = {"InputFormWrapper"}>		  
-		  <label htmlFor = "inputid">{props.name}</label>
-		  <input type ={props.type} value={props.val} onChange={props.handler} id = "inputid" className = {(props.check)?"InputTrue":"InputFalse"}/>		 
+		  <label htmlFor = {props.name}>{props.name}</label>
+		  <input type ={props.type} value={props.val} onChange={props.handler} id = {props.name} className = {(props.check)?"InputTrue":"InputFalse"}/>		 
 		  <div className = {"InputFormMessage"}>{props.message}</div>
     </div>
   );

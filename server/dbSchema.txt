@@ -1,0 +1,20 @@
+CREATE TABLE USER
+(
+id INT NOT NULL,
+name VARCHAR(10) NOT NULL,
+email VARCHAR(50) NOT NULL,
+pw VARCHAR(100) NOT NULL,
+phone VARCHAR(13) NOT NULL,
+registered_at TIMESTAMP NOT NULL,
+address_lv1 VARCHAR(50) NOT NULL,
+address_lv2 VARCHAR(50) NOT NULL,
+rank INT NOT NULL,
+rank_point INT NOT NULL,
+membership_point INT NOT NULL,
+admin_priv BOOLEAN NOT NULL,
+sales_priv BOOLEAN NOT NULL,
+refreshToken VARCHAR(1000) NOT NULL
+PRIMARY KEY (id)
+);
+
+INSERT INTO USER(name, email, pw, address_lv1, address_lv2, phone) VALUES(body.name, body.email, body.pw, body.address_lv1, body.address_lv2, body.phone);
