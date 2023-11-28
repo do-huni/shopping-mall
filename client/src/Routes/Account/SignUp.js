@@ -2,8 +2,10 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import "./Account.css";
 import InputForm from './InputForm.js';
+import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
+	const navigate = useNavigate();	
     const [Email, setEmail] = useState("");
     const [Name, setName] = useState("");
     const [Password, setPassword] = useState("");
@@ -113,8 +115,13 @@ function SignUp() {
 			  url: 'https://shopping-mall-be.run.goorm.site/signup',
 			  data: signUpData		  
 			}).then((res)=>{
-				console.log(res);			
-			}).catch(console.error);				
+				console.log(res);
+				alert("회원가입이 완료 되었습니다.");
+				navigate("/")
+			}).catch((res)=>{
+				console.log(res);
+				alert("오류가 발생했습니다.");
+			});				
 		} else{
 			alert("입력 조건이 충족되지 않았습니다.")
 		}

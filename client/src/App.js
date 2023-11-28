@@ -2,6 +2,7 @@ import './App.css';
 import axios from "axios";
 import {useEffect} from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import Header from "./Routes/HeaderFooter/Header.js";
 import Footer from "./Routes/HeaderFooter/Footer.js";
 import SignUp from "./Routes/Account/SignUp.js";
