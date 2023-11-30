@@ -32,13 +32,14 @@ class User {
 			};
 			// mysql에 email이 일치하는 user를 찾는 쿼리를 한다.
 			const [result, fields] = await db.execute(`SELECT * FROM USER WHERE email = "${body.email}";`);
+			console.log(body);
 			if(result.length == 0){
 				returnVal.message = "아이디가 존재하지 않습니다."
 				return returnVal;
 			}			
-			let pw = await bcrypt.hash(body.pw, 10);
+			const check = await bcrypt.compare(body.pw, result[0].pw);
 			// 비밀번호를 비교한다.
-			if(!result[0].pw == pw){
+			if(!check){
 				returnVal.message = "비밀번호가 틀렸습니다."
 				return returnVal;
 			}

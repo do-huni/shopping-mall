@@ -1,8 +1,10 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
 import "./Account.css";
+import { useNavigate } from 'react-router-dom';
+
 function SignIn() {
-	
+  const navigate = useNavigate();		
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
 	
@@ -19,13 +21,20 @@ function SignIn() {
 		  pw: Password
 	  };
 	  axios({
-		  method: 'get',
-		  url: 'https://shopping-mall-be.run.goorm.site/signup',
+		  method: 'post',
+		  url: 'https://shopping-mall-be.run.goorm.site/signin',
 		  data: signInData				  
-	  }).then((res)=>{
-		  
+	  }).then((res)=>{	
+		  console.log(res);
+		  if(!res.data.okay){
+			  alert(res.data.message);
+		  } else{
+			  localStorage.setItem('jwtAccess', res.data.accessToken);
+			  localStorage.setItem('jwtRefresh', res.data.refreshToken);
+			  navigate('/');
+		  }
 	  }).catch((res)=>{
-		  
+		  console.log(res);
 	  });
   }
   return (

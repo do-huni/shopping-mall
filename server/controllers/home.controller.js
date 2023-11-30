@@ -18,10 +18,8 @@ exports.signIn = async (req, res)=>{
   res.status(response.status);
   res.send({
 	  okay: response.ifSuccess,
-	  data: {
-		  accessToken: response.accessToken,
-		  responseToken: response.refreshToken
-	  },
+	  accessToken: response.accessToken,
+	  refreshToken: response.refreshToken,
 	  message: response.message
   });
 };
