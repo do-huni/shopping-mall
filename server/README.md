@@ -104,10 +104,10 @@ erDiagram
 
 |summary|URI|Request Header|Params|Request Body|Status Code|Response Header|Response Body|
 |---|---|---|---|---|---|---|---|
-|회원가입|POST /signup|---|---|---|---|---|---|
-|JWT토큰 발행|GET /signin|---|---|---|---|---|---|
-|유저 정보 접근|GET /user|---|---|---|---|---|---|
-|JWT토큰 리프레쉬|GET /refresh|---|---|---|---|---|---|
+|회원가입|POST /signup|---|---|{name, email, pw, address_lv1, address_lv2,phone}|201, 400|---|{message, refreshToken}|
+|JWT토큰 발행|POST /signin|---|---|{email, pw}|201, 400|---|{okay, jwtAccessToken, jwtRefreshToken, message}|
+|유저 정보 접근|GET /user|authorization|---|---|200, 400|---|{id, name, email, pw, phone, registered_at, address_lv1, address_lv2, rank, rank_point, membership_point, admin_priv, sales_priv, refreshToken, message}|
+|JWT토큰 리프레쉬|GET /refresh|authorization, refresh|---|---|201, 204, 400, 401|---|{message, refreshToken, accessToken}|
 |상품 카테고리 추가|POST /admin/category|---|---|---|---|---|---|
 |카테고리에 상품 추가|POST /admin/{category_id}/post|---|---|---|---|---|---|
 |특정 카테고리 상품 목록|GET /{category_id}/post|---|---|---|---|---|---|
