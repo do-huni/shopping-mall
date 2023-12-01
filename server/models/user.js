@@ -24,7 +24,7 @@ class User {
 		try{
 			// 반환할 객체
 			let returnVal = {
-				status: 200,
+				status: 201,
 				message: "",
 				jwtAccessToken: "accessToken",
 				jwtRefreshToken: "refreshToken",
@@ -77,7 +77,7 @@ class User {
 				const postQuery = await db.execute(`INSERT INTO USER(name, email, pw, address_lv1, address_lv2, phone, refreshToken) VALUES("${body.name}", "${body.email}", "${pw}", "${body.address_lv1}", "${body.address_lv2}", "${body.phone}", "${refreshToken}");`);				
 				return({status: 201,
 				   message: "sign up success!",
-				   jwtAccessToken: refreshToken});
+				   refreshToken: refreshToken});
 			};	
 			return({
 				status: 400,
