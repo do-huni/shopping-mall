@@ -7,8 +7,8 @@ require('dotenv').config();
 exports.signUp = async (req, res) => {
     const user = new User(req.body);	
 	const response = await user.signUp();
-	res.status(response.status)
 	res.header("Access-Control-Allow-Origin", process.env.FE_PATH);
+	res.status(response.status)
 	res.send(response);
 }
 

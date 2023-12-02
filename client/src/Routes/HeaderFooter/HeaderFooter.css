@@ -15,7 +15,7 @@
 	left: 0;
 	top: 0;
 	width: 100%;
-	height: 100px;
+	/* height: 100px; */
 }
 #header svg{
 	font-size: 18pt;
@@ -53,7 +53,7 @@
 
 #footer{
 	width: 100%;
-	height: 200px;
+	padding: 2em 0;
 	background: var(--sub-white);
 }
 #footerContentsWrapper{
@@ -63,10 +63,10 @@
 	justify-content: space-between;
 	height: 100%;
 	align-items: center;
+	flex-wrap: wrap;
 }
 #footerNav{
 	width: 100%;
-	color: 
 }
 #footerNav > ul{
 	list-style: none;
@@ -75,6 +75,7 @@
 	color: var(--main-black);
 	font-weight: 900;
 	font-size: 18pt;
+	flex-wrap: wrap;
 	justify-content: space-evenly;
 }
 #footerNav > ul > li > ul{
