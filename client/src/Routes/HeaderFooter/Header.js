@@ -42,8 +42,11 @@ function Header() {
 			  	  <BsFillPersonFill id = "userSVG"/>
 				  <div className = {"dropdownContent"}>
 					  <div onClick = {()=>{navigate("/mypage")}}>마이페이지</div>					  
+					  <div onClick = {()=>{navigate("/adminpage")}}>어드민 페이지</div>	
+					  <div onClick = {()=>{navigate("/salepage")}}>상품 관리 페이지</div>					  					  					  
 					  <div onClick = {()=>{navigate("/signup")}}>회원가입</div>
 					  <div onClick = {()=>{navigate("/signin")}}>로그인</div>
+					  <div onClick = {()=>{navigate("/signout")}}>로그아웃</div>					  
 					  
   			  	  </div>
 			   </span>			  
