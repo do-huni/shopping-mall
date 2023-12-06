@@ -1,10 +1,8 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
-import "./Account.css";
+import "../Account.css";
 import { useNavigate } from 'react-router-dom';
-import RankComponent from './RankComponent';
-import RankBar from './RankBar';
-import Card from './Card';
+import Card from '../Card';
 import { BsCreditCard, BsCart, BsTruck, BsBox2 } from "react-icons/bs";
 
 function MyPage() {
@@ -46,16 +44,10 @@ function MyPage() {
 
   }
   return (
-    <div id = "">	
 	<div className = "container">
-		<div className = "userWrapper">
-			<div className = "userBold">{userName}<RankComponent rank = {userRank}/></div>
-			<div className = "userNormal">{userEmail}</div>
-		</div>
-		<RankBar rank = {userRank} rankPoint = {userRankPoint} />
 		<div className = "cardWrapper">
-			<Card title = "장바구니" content = "담아놓은 상품을 조회합니다." icon = {()=><BsCart/>}/>
-			<Card title = "결제진행" content = "결제 단계인 상품을 조회합니다." icon = {()=><BsCreditCard/>}/>
+			<Card title = "상품 등록" content = "담아놓은 상품을 조회합니다." icon = {()=><BsCart/>} link = "/salepage/post"/>
+			<Card title = "상품 조회" content = "결제 단계인 상품을 조회합니다." icon = {()=><BsCreditCard/>}/>
 			<Card title = "배송중" content = "배송 중인 상품을 조회합니다." icon = {()=><BsTruck/>}/>
 			<Card title = "배송완료" content = "배송 완료된 상품을 조회합니다." icon = {()=><BsBox2/>}/>
 		</div>
@@ -66,7 +58,6 @@ function MyPage() {
 			<div>문의 및 고객센터</div>
 		</div>
 	</div>		  
-    </div>
   );
 }
 

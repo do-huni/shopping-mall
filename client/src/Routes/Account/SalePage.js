@@ -1,13 +1,13 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
 import "./Account.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
+import Card from './Card';
 import RankComponent from './RankComponent';
 import RankBar from './RankBar';
-import Card from './Card';
-import { BsCreditCard, BsCart, BsTruck, BsBox2 } from "react-icons/bs";
+import SaleBar from './SaleBar';
 
-function MyPage() {
+function SalePage() {
 	const navigate = useNavigate();		
 	const [userName, setUserName] = useState("");
 	const [userEmail, setUserEmail] = useState("");
@@ -31,6 +31,11 @@ function MyPage() {
 	  }
 	  ).then((res)=>{	
 		  const data = res.data;
+// 		  일반 계정에서 접근 시 접근 거부
+		  if(!data.sales_priv){
+			  alert("권한이 없는 계정입니다.");
+			  navigate('/');
+		  }
 		  setUserName(data.name);
 		  setUserEmail(data.email);
 		  setUserRank(data.rank);
@@ -45,29 +50,28 @@ function MyPage() {
       event.preventDefault();	
 
   }
+  const sideBar = [
+	  { title: "상품 관리", icon: "bi-bag", link: "product" },
+	  { title: "브랜드 페이지", icon : "bi-shop", link: "brand"},
+	  { title: "배송 관리", icon : "bi-truck", link: "delivery" },
+	  { title: "리뷰 관리", icon : "bi-chat", link: "review"},
+	  
+  ]
   return (
-    <div id = "">	
-	<div className = "container">
+	<>
+    <div id = "saleWrapper">		  
+	<SaleBar items = {sideBar} title = "브랜드 관리"/>	  	  		  
+	<div className = "container">		  
 		<div className = "userWrapper">
 			<div className = "userBold">{userName}<RankComponent rank = {userRank}/></div>
 			<div className = "userNormal">{userEmail}</div>
 		</div>
 		<RankBar rank = {userRank} rankPoint = {userRankPoint} />
-		<div className = "cardWrapper">
-			<Card title = "장바구니" content = "담아놓은 상품을 조회합니다." icon = {()=><BsCart/>}/>
-			<Card title = "결제진행" content = "결제 단계인 상품을 조회합니다." icon = {()=><BsCreditCard/>}/>
-			<Card title = "배송중" content = "배송 중인 상품을 조회합니다." icon = {()=><BsTruck/>}/>
-			<Card title = "배송완료" content = "배송 완료된 상품을 조회합니다." icon = {()=><BsBox2/>}/>
-		</div>
-		<div>
-			<div>최근 본 상품</div>
-		</div>
-		<div>
-			<div>문의 및 고객센터</div>
-		</div>
-	</div>		  
+		<Outlet/>
     </div>
+	</div>
+	</>
   );
 }
 
-export default MyPage;
+export default SalePage;

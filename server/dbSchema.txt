@@ -16,5 +16,37 @@ sales_priv BOOLEAN NOT NULL,
 refreshToken VARCHAR(1000) NOT NULL
 PRIMARY KEY (id)
 );
+CREATE TABLE CATEGORY (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(50) NOT NULL
+)
+CREATE TABLE SIZE (
+ id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ name VARCHAR(50) NOT NULL
+)
 
+CREATE TABLE PRODUCT (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(50) NOT NULL,
+	publisher_id INT NOT NULL,
+	FOREIGN KEY (publisher_id) REFERENCES USER(id)
+)
+
+CREATE TABLE ITEM
+(
+id INT NOT NULL AUTO_INCREMENT,
+category_id INT NOT NULL,
+product_id INT NOT NULL,
+size_id INT NOT NULL,
+price INT NOT NULL,
+couponable BOOLEAN DEFAULT true,
+sale DECIMAL DEFAULT 0,
+posted_at TIMESTAMP NOT NULL,
+
+
+PRIMARY KEY (id),
+FOREIGN KEY (size_id) REFERENCES SIZE(id),
+FOREIGN KEY (product_id) REFERENCES PRODUCT(id),
+FOREIGN KEY (category_id) REFERENCES CATEGORY(id)
+)
 INSERT INTO USER(name, email, pw, address_lv1, address_lv2, phone) VALUES(body.name, body.email, body.pw, body.address_lv1, body.address_lv2, body.phone);
