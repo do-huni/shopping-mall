@@ -121,7 +121,8 @@ erDiagram
 |JWT토큰 발행|POST /signin|---|---|{email, pw}|201, 400|---|{okay, jwtAccessToken, jwtRefreshToken, message}|
 |유저 정보 접근|GET /user|authorization|---|---|200, 400|---|{id, name, email, pw, phone, registered_at, address_lv1, address_lv2, rank, rank_point, membership_point, admin_priv, sales_priv, refreshToken, message}|
 |JWT토큰 리프레쉬|GET /refresh|authorization, refresh|---|---|201, 204, 400, 401|---|{message, refreshToken, accessToken}|
-|상품 카테고리 추가|POST /admin/category|---|---|---|---|---|---|
+|카테고리 목록|GET /category|---|---|---|200,400,404|---|{id, name}|
+|상품 카테고리 추가|POST /category|---|---|---|200,400,404|---|{message}|
 |카테고리에 상품 추가|POST /admin/{category_id}/post|---|---|---|---|---|---|
 |특정 카테고리 상품 목록|GET /{category_id}/post|---|---|---|---|---|---|
 |상품 상세페이지|GET /{category_id}/{post_id}|---|---|---|---|---|---|
