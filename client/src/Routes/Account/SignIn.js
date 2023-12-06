@@ -7,7 +7,7 @@ function SignIn() {
   const navigate = useNavigate();		
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
-	
+  
   const onEmailHandler = (event) => {
       setEmail(event.currentTarget.value);
   }	
@@ -35,6 +35,7 @@ function SignIn() {
 		  }
 	  }).catch((res)=>{
 		  console.log(res);
+		  alert("네트워크 오류 발생. 서버가 닫혀있거나 응답을 받을 수 없는 상황입니다.");
 	  });
   }
   return (
