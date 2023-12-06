@@ -1,11 +1,12 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
 import "./Account.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
 import Card from './Card';
 import RankComponent from './RankComponent';
 import RankBar from './RankBar';
 import SaleBar from './SaleBar';
+
 function SalePage() {
 	const navigate = useNavigate();		
 	const [userName, setUserName] = useState("");
@@ -50,10 +51,10 @@ function SalePage() {
 
   }
   const sideBar = [
-	  { title: "상품 관리", icon: "bi-bag" },
-	  { title: "브랜드 페이지", icon : "bi-shop" },
-	  { title: "배송 관리", icon : "bi-truck" },
-	  { title: "리뷰 관리", icon : "bi-chat" },
+	  { title: "상품 관리", icon: "bi-bag", link: "product" },
+	  { title: "브랜드 페이지", icon : "bi-shop", link: "brand"},
+	  { title: "배송 관리", icon : "bi-truck", link: "delivery" },
+	  { title: "리뷰 관리", icon : "bi-chat", link: "review"},
 	  
   ]
   return (
@@ -66,6 +67,7 @@ function SalePage() {
 			<div className = "userNormal">{userEmail}</div>
 		</div>
 		<RankBar rank = {userRank} rankPoint = {userRankPoint} />
+		<Outlet/>
     </div>
 	</div>
 	</>

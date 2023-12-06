@@ -58,16 +58,25 @@ erDiagram
         VARCHAR(100) pw  "유저 비밀번호(암호화)"
         VARCHAR(1000) refreshToken  "JWT 리프레쉬 토큰"
     }    
-
+	SIZE{
+		int id PK "사이즈 고유 번호"
+		VARCHAR(50) name "사이즈 이름"		
+	}
+	PRODUCT{
+		int id PK "제품 번호"
+        int publisher_id FK "USER-id"		
+		VATCHAR(50) name  "제품 이름"		
+	}
     ITEM{
         int id PK "상품 고유 번호"
-        int publisher_id FK "USER-id"
-        int category_id FK "CATEGORY-id"
-        VARCHAR(50) name  "상품 이름"
+        int category_id FK "CATEGORY-id"		
+		int product_id FK "PRODUCT-id"        
+		int size_id FK "SIZE-id"
         int price  "가격"
         boolean couponable  "쿠폰적용가능유무"
         DECIMAL sale  "세일 퍼센트"
-        TIMESTAMP posted_at  "등록날짜"
+        TIMESTAMP posted_at  "등록날짜",
+		int counter  "판매량"
     }
     USER-COUPON{
         int id  "고유 번호"
@@ -79,6 +88,10 @@ erDiagram
         int percent  "쿠폰 금액"
         TIMESTAMP due  "유효기간"
     }
+	SIZE{
+		int id PK "사이즈 고유 번호",
+		VARCHAR(20) name  "사이즈 이름"
+	}
     CART-ITEM{
         int id PK "고유 번호"
         int uid FK "USER-id"
