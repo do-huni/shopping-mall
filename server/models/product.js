@@ -4,6 +4,22 @@ class Product{
 	constructor(req){
 		this.req = req;
 	}
+	async addPost(){
+		const req = this.req;
+		try{
+			const 
+			const name = req.body.name;
+			const description = req.body.description;
+			const postQuery = await db.execute(`INSERT INTO PRODUCT(name, publisher_id, description) VALUES("${name}", ${id}, "${description});`);									
+		} catch (err) {
+			console.log(err);
+			return {
+				status: 400,
+				message: "DB 내부 오류 발생"
+			};
+		}
+	}
+	
 	async createCategory(){
 		const req = this.req;
 		try{

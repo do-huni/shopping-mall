@@ -23,6 +23,8 @@ Authorizaton 헤더
 인증 스키마:
 JWT을 사용하는 Bearer
 
+
+
 ## server API 및 DB구조 정리
 
 머메이드 라이브 에디터
@@ -39,11 +41,14 @@ erDiagram
     USER ||--o{ USER-COUPON : connects
     CART-ITEM ||--|| COUPON : links
     
+    ITEM ||--|| SIZE : refers
+    PRODUCT ||--o{ ITEM : projects
     USER-COUPON }o--|| COUPON: connects
     USER ||--o{ CART-ITEM : has
     CART-ITEM ||--|| ITEM : links
     USER {
         int id PK "유저 고유 번호"
+		uuid uid  "외부공개용"
         VARCHAR(10) name  "유저 이름"
         VARCHAR(13) phone  "xxx-xxxx-xxxx"
         TIMESTAMP registered_at  "가입날짜"
@@ -64,8 +69,10 @@ erDiagram
 	}
 	PRODUCT{
 		int id PK "제품 번호"
+		uuid uid  "외부공개용"
         int publisher_id FK "USER-id"		
-		VATCHAR(50) name  "제품 이름"		
+		VARCHAR(50) name  "제품 이름"
+	 	text description  "제품 설명"		
 	}
     ITEM{
         int id PK "상품 고유 번호"
@@ -75,7 +82,7 @@ erDiagram
         int price  "가격"
         boolean couponable  "쿠폰적용가능유무"
         DECIMAL sale  "세일 퍼센트"
-        TIMESTAMP posted_at  "등록날짜",
+        TIMESTAMP posted_at  "등록날짜"
 		int counter  "판매량"
     }
     USER-COUPON{
@@ -85,23 +92,22 @@ erDiagram
     }
     COUPON{
         int id PK "쿠폰 고유 번호"
+		uuid uid  "외부공개용"
         int percent  "쿠폰 금액"
         TIMESTAMP due  "유효기간"
     }
-	SIZE{
-		int id PK "사이즈 고유 번호",
-		VARCHAR(20) name  "사이즈 이름"
-	}
     CART-ITEM{
         int id PK "고유 번호"
-        int uid FK "USER-id"
-        int iid FK "ITEM-id"
-        int cid FK "COUPON-id"
+		uuid uid  "외부공개용"
+        int user_id FK "USER-id"
+        int item_id FK "ITEM-id"
+        int coupon_id FK "COUPON-id"
         int status  "상품 배송 상태"
         int point_spend  "사용한 포인트"
     }
     REVIEW{
         int id PK "리뷰 고유 번호"
+		uuid uid  "외부공개용"
         int item_id FK "ITEM-id"
         VARCHAR(50) user_id FK "USER-id"
         int star  "별점(0~5)"        
@@ -110,20 +116,24 @@ erDiagram
 
     CATEGORY{
         int id PK "카테고리 고유 번호"
+		uuid uid  "외부공개용"
         VARCHAR(50) name  "카테고리 이름"
     }
-```
 
+```
+## DB 설계 시 고려사항
+1. PK 노출하지 않기. PK를 A_I_로 쓰돼, uuid로 된 외부 노출 용 칼럼을 새로 만들어서 URI 등에 사용한다.
+2. INDEX. PK를 구할 수 있는 칼럼에 인덱싱을 해 놓고, 백앤드의 MODEL에서 PK를 구해서 구한 PK로 또 다시 쿼리를 넣자.
 
 |summary|URI|Request Header|Params|Request Body|Status Code|Response Header|Response Body|
 |---|---|---|---|---|---|---|---|
 |회원가입|POST /signup|---|---|{name, email, pw, address_lv1, address_lv2,phone}|201, 400|---|{message, refreshToken}|
 |JWT토큰 발행|POST /signin|---|---|{email, pw}|201, 400|---|{okay, jwtAccessToken, jwtRefreshToken, message}|
 |유저 정보 접근|GET /user|authorization|---|---|200, 400|---|{id, name, email, pw, phone, registered_at, address_lv1, address_lv2, rank, rank_point, membership_point, admin_priv, sales_priv, refreshToken, message}|
-|JWT토큰 리프레쉬|GET /refresh|authorization, refresh|---|---|201, 204, 400, 401|---|{message, refreshToken, accessToken}|
+|JWT토큰 리프레쉬|GET /user/refresh|authorization, refresh|---|---|201, 204, 400, 401|---|{message, refreshToken, accessToken}|
 |카테고리 목록|GET /category|---|---|---|200,400,404|---|{id, name}|
 |상품 카테고리 추가|POST /category|---|---|---|200,400,404|---|{message}|
-|카테고리에 상품 추가|POST /admin/{category_id}/post|---|---|---|---|---|---|
+|카테고리에 상품 추가|POST /{category_id}/post|---|---|---|---|---|---|
 |특정 카테고리 상품 목록|GET /{category_id}/post|---|---|---|---|---|---|
 |상품 상세페이지|GET /{category_id}/{post_id}|---|---|---|---|---|---|
 |상품 수정|PATCH /{category_id}/{post_id}|---|---|---|---|---|---|
